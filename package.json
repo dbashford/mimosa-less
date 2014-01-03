@@ -1,0 +1,33 @@
+{
+  "name": "mimosa-less",
+  "version": "1.0.0",
+  "homepage": "https://github.com/dbashford/mimosa-less",
+  "author": "David Bashford",
+  "description": "A LESS compiler for Mimosa 2.0+",
+  "contributors": [
+    {
+      "name": "David Bashford",
+      "email": "dbashford@hotmail.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dbashford/mimosa-less"
+  },
+  "keywords": [
+    "mimosa",
+    "mmodule",
+    "compiler",
+    "less"
+  ],
+  "dependencies": {
+    "logmimosa": "0.6.0",
+    "less": "1.6.0",
+    "lodash": "2.4.1"
+  },
+  "license": "MIT",
+  "main": "./src",
+  "engines": {
+    "node": ">=0.10"
+  }
+}
