@@ -63,6 +63,12 @@ var determineBaseFiles = function ( allFiles ) {
       importRegex.lastIndex = 0;
       var importPath = importRegex.exec( anImport )[1];
       var fullImportPath = path.join( path.dirname( file ), importPath );
+      allFiles.some( function( fullFilePath ) {
+        if ( fullFilePath.indexOf( fullImportPath ) === 0 ) {
+          fullImportPath += path.extname( fullFilePath );
+          return true;
+        }
+      });
       imported.push( fullImportPath );
     });
 
