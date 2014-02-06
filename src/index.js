@@ -64,6 +64,13 @@ var determineBaseFiles = function ( allFiles ) {
       var importPath = importRegex.exec( anImport )[1];
       var fullImportPath = path.join( path.dirname( file ), importPath );
       allFiles.some( function( fullFilePath ) {
+
+        // if import uses extension
+        if ( fullFilePath === ( fullImportPath ) ) {
+          return true;
+        }
+
+        // if import does not use extension
         if ( fullFilePath.indexOf( fullImportPath ) === 0 ) {
           fullImportPath += path.extname( fullFilePath );
           return true;
@@ -84,7 +91,6 @@ var determineBaseFiles = function ( allFiles ) {
 module.exports = {
   name: "less",
   compilerType: "css",
-  partialKeepsExtension: true,
   canFullyImportCSS: true,
   importRegex: importRegex,
   compile: compile,
