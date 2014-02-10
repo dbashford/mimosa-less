@@ -3,20 +3,21 @@
 var fs = require( 'fs' )
   , path = require( 'path' )
   , _ = require( 'lodash' )
-  , logger = require( 'logmimosa' )
+  , logger = null
   , config = require( './config' )
   , importRegex = /@import\s+(?:(?:\(less\)|\(css\))\s+?)?['"](.*)['"]/g
   , getImportFilePath = function ( baseFile, importPath ) {
     return path.join( path.dirname( baseFile ), importPath );
   }
   , getExtensions = function ( mimosaConfig ) {
+    logger = mimosaConfig.log;
     return mimosaConfig.less.extensions;
   };
 
 var compile = function ( mimosaConfig, file, done ) {
   var fileName = file.inputFileName;
 
-  if ( logger.isDebug ) {
+  if ( logger.isDebug() ) {
     logger.debug( "Compiling LESS file [[ " + fileName + " ]], first parsing..." );
   }
 
@@ -42,7 +43,7 @@ var compile = function ( mimosaConfig, file, done ) {
       }
     }
 
-    if ( logger.isDebug ) {
+    if ( logger.isDebug() ) {
       logger.debug( "Finished LESS compile for file [[ " + fileName + " ]], errors? " + !!err) ;
     }
 
@@ -82,7 +83,7 @@ var determineBaseFiles = function ( allFiles ) {
   });
 
   var baseFiles = _.difference( allFiles, imported );
-  if ( logger.isDebug ) {
+  if ( logger.isDebug() ) {
     logger.debug( "Base files for LESS are:\n" + baseFiles.join( '\n' ) );
   }
   return baseFiles;
