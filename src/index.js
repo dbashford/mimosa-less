@@ -35,7 +35,11 @@ var compile = function ( mimosaConfig, file, done ) {
 
     try {
       logger.debug( "...then converting to CSS" );
-      result = tree.toCSS();
+      var options = {
+        sourceMap: mimosaConfig.less.sourceMap
+        , outputSourceFiles: true
+      }
+      result = tree.toCSS(options);
     } catch ( ex ) {
       err = ex.type + " Error: " + ex.message;
       if ( ex.filename ) {
