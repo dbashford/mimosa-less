@@ -3,6 +3,7 @@
 exports.defaults = function() {
   return {
     less: {
+      sourceMap: true,
       extensions: [ "less" ],
     }
   };
@@ -12,6 +13,7 @@ exports.placeholder = function() {
   return "\t\n\n"+
          "  # less:                  # config settings for the Less compiler module\n" +
          "    # lib: undefined       # use this property to provide a specific version of Less\n" +
+         "    # sourceMap: true       # a less compiler option to turn on/off source maps\n" +
          "    # extensions: [\"less\"]   # default extensions for Less files\n";
 };
 
@@ -28,6 +30,10 @@ exports.validate = function( config, validators ) {
       if (config.less.extensions.length === 0) {
         errors.push( "less.extensions cannot be an empty array");
       }
+    }
+
+    if ( config.isBuild ) {
+      config.less.sourceMap = false;
     }
   }
 

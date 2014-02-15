@@ -22,8 +22,10 @@ This module will compile Less files during `mimosa watch` and `mimosa build`.
 ```coffeescript
 less:
   lib: undefined
+  sourceMap: true
   extensions: ["less"]
 ```
 
 * `lib`: You may want to use this module but may not be ready to use the latest version of Less. Using the `lib` property you can provide a specific version of Less if the one being used by this module isn't to your liking. To provide a specific version, you must have it `npm install`ed into your project and then provide it to `lib`. For instance: `lib: require('less')`.
+* `sourceMap`: a less compiler option to turn on/off source maps. They are [Dynamic source maps](http://fitzgeraldnick.com/weblog/46/) which require no extra network hops to retrieve the original source or the map files.
 * `extensions`: an array of strings, the extensions of your Less files.
