@@ -38,8 +38,8 @@ var compile = function ( mimosaConfig, file, done ) {
       var options = {
         sourceMap: mimosaConfig.less.sourceMap
         , outputSourceFiles: true
-      }
-      result = tree.toCSS(options);
+      };
+      result = tree.toCSS( options );
     } catch ( ex ) {
       err = ex.type + " Error: " + ex.message;
       if ( ex.filename ) {

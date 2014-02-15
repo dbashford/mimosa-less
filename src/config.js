@@ -32,6 +32,8 @@ exports.validate = function( config, validators ) {
       }
     }
 
+    validators.ifExistsIsBoolean( errors, "less.sourceMap", config.less.sourceMap );
+
     if ( config.isBuild ) {
       config.less.sourceMap = false;
     }
