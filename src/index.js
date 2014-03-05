@@ -1,10 +1,10 @@
 "use strict";
 
-var fs = require( 'fs' )
-  , path = require( 'path' )
-  , _ = require( 'lodash' )
+var fs = require( "fs" )
+  , path = require( "path" )
+  , _ = require( "lodash" )
   , logger = null
-  , config = require( './config' )
+  , config = require( "./config" )
   , importRegex = /@import\s+(?:(?:\(less\)|\(css\))\s+?)?['"](.*)['"]/g
   , getImportFilePath = function ( baseFile, importPath ) {
     return path.join( path.dirname( baseFile ), importPath );
@@ -59,7 +59,7 @@ var compile = function ( mimosaConfig, file, done ) {
 var determineBaseFiles = function ( allFiles ) {
   var imported = [];
   allFiles.forEach( function ( file ) {
-    var imports = fs.readFileSync( file, 'utf8' ).match( importRegex );
+    var imports = fs.readFileSync( file, "utf8" ).match( importRegex );
     if ( !imports ) {
       return;
     }
@@ -88,7 +88,7 @@ var determineBaseFiles = function ( allFiles ) {
 
   var baseFiles = _.difference( allFiles, imported );
   if ( logger.isDebug() ) {
-    logger.debug( "Base files for LESS are:\n" + baseFiles.join( '\n' ) );
+    logger.debug( "Base files for LESS are:\n" + baseFiles.join( "\n" ) );
   }
   return baseFiles;
 };
