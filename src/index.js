@@ -5,7 +5,8 @@ var fs = require( "fs" )
   , _ = require( "lodash" )
   , logger = null
   , config = require( "./config" )
-  , importRegex = /@import\s+(?:(?:\(less\)|\(css\))\s+?)?['"](.*)['"]/g
+  , importRegex =
+    /@import\s+(?:(?:\(less\)|\(css\)|\(inline\)|\(reference\)|\(once\)|\(multiple\)|\(optional\))\s+?)?['"](.*)['"]/g
   , getImportFilePath = function ( baseFile, importPath ) {
     return path.join( path.dirname( baseFile ), importPath );
   }
@@ -17,42 +18,27 @@ var fs = require( "fs" )
 var compile = function ( mimosaConfig, file, done ) {
   var fileName = file.inputFileName;
 
-  if ( logger.isDebug() ) {
-    logger.debug( "Compiling LESS file [[ " + fileName + " ]], first parsing..." );
-  }
-
-  var parser = new mimosaConfig.less.lib.Parser( {
+  var options = {
     paths: [ mimosaConfig.watch.sourceDir, path.dirname( fileName ) ],
     filename: fileName
-  } );
+  };
 
-  parser.parse( file.inputFileText, function ( error, tree ) {
-    var err, result;
+  if ( mimosaConfig.less.sourceMap ) {
+    options.sourceMap = {
+      sourceMapFileInline: true
+    };
+  }
 
-    if ( error ) {
-      return done( error, null );
-    }
-
-    try {
-      logger.debug( "...then converting to CSS" );
-      var options = {
-        sourceMap: mimosaConfig.less.sourceMap
-        , outputSourceFiles: true
-      };
-      result = tree.toCSS( options );
-    } catch ( ex ) {
-      err = ex.type + " Error: " + ex.message;
-      if ( ex.filename ) {
-        err += " in '" + ex.filename + ":" + ex.line + ":" + ex.column + "'";
+  mimosaConfig.less.lib.render(file.inputFileText, options, function(e, output) {
+    if ( e ) {
+      var err = e.type + " Error: " + e.message;
+      if ( e.filename ) {
+        err += " in '" + e.filename + ":" + e.line + ":" + e.column + "'";
       }
+      return done( err, null );
+    } else {
+      return done( null, output.css );
     }
-
-    if ( logger.isDebug() ) {
-      logger.debug( "Finished LESS compile for file [[ " + fileName + " ]], errors? " + !!err) ;
-    }
-
-    done( err, result );
-
   });
 };
 
