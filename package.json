@@ -21,7 +21,7 @@
     "less"
   ],
   "dependencies": {
-    "less": "2.3.1",
+    "less": "2.4.0",
     "lodash": "2.4.1"
   },
   "license": "MIT",
