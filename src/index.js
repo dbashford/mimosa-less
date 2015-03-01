@@ -25,7 +25,8 @@ var compile = function ( mimosaConfig, file, done ) {
 
   if ( mimosaConfig.less.sourceMap ) {
     options.sourceMap = {
-      sourceMapFileInline: true
+      sourceMapFileInline: true,
+      outputSourceFiles: true
     };
   }
 
