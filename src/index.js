@@ -20,7 +20,8 @@ var compile = function ( mimosaConfig, file, done ) {
 
   var options = {
     paths: [ mimosaConfig.watch.sourceDir, path.dirname( fileName ) ],
-    filename: fileName
+    filename: fileName,
+    plugins: mimosaConfig.less.plugins
   };
 
   if ( mimosaConfig.less.sourceMap ) {

@@ -4,6 +4,7 @@ exports.defaults = function() {
   return {
     less: {
       sourceMap: true,
+      plugins: [],
       extensions: [ "less" ]
     }
   };
@@ -14,6 +15,7 @@ exports.placeholder = function() {
          "  less:                  # config settings for the Less compiler module\n" +
          "    lib: undefined       # use this property to provide a specific version of Less\n" +
          "    sourceMap: true      # a less compiler option to turn on/off source maps\n" +
+         "    plugins: []          # array of less plugins to use\n" +
          "    extensions: [\"less\"]   # default extensions for Less files\n";
 };
 

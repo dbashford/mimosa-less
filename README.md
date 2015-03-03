@@ -21,6 +21,7 @@ This module will compile Less files during `mimosa watch` and `mimosa build`.  I
 less: {
   lib: undefined,
   sourceMap: true,
+  plugins: [],
   extensions: ["less"]
 }
 ```
@@ -31,5 +32,23 @@ You may want to use this module but may not be ready to use the latest version o
 #### `sourceMap` boolean
 A less compiler option to turn on/off source maps. The source maps are automatically inlined when they are present.  This module does not support separate file source maps. `sourceMap` is automatically set to `false` during `mimosa build`.
 
+#### `plugins` array of less plugins
+A less compiler option to add plugins to the render flow.  For example, you may wish to use advanced color functions with less by using the `less-plugin-advanced-color-functions` plugin.  You'll need to instantiate the plugin in your mimosa config and pass the reference into this array.
+
 #### `extensions` array of strings
 The extensions of your Less files.
+
+## Example Config
+
+```
+var LessPluginAdvancedColorFunctions = require('less-plugin-advanced-color-functions');
+var AdvancedColorFunctions = new LessPluginAdvancedColorFunctions();
+
+...
+
+less:
+  extensions: ["less"]
+  plugins: [AdvancedColorFunctions]
+```
+
+* `less.plugins` allows you to pass in an array of initialized less plugins. In this example we're loading the `less-plugin-advanced-color-functions` plugin.
